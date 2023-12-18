@@ -3,14 +3,13 @@ import random
 
 from PyQt5 import uic  # Импортируем uic
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from PIL import Image, ImageFilter, ImageDraw
-from PIL.ImageQt import ImageQt
+from UI import Ui_MainWindow
 from PyQt5.QtGui import QPainter, QColor, QPen
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MyWidget, self).__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.do_paint = False
         self.btn_draw.clicked.connect(self.paint)
 
@@ -26,8 +25,9 @@ class MyWidget(QMainWindow):
         self.repaint()
 
     def draw_circle(self, qp):
-        qp.setPen(QColor(255, 255, 0))
-        qp.setBrush(QColor(255, 255, 0))
+        color = QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        qp.setPen(color)
+        qp.setBrush(color)
         x = random.randint(10, 550)
         y = random.randint(50, 500)
         w = random.randint(10, 100)
